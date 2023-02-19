@@ -1,0 +1,10 @@
+###
+
+POST http://localhost:4088/api
+Content-Type: application/json
+
+{
+
+    "question": "your_question"
+
+}
