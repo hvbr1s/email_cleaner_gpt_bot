@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>My Website</title>
+	<!-- Link to the Open Sans font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<style>
+		/* Apply the font and background color styles to the body element */
+		body {
+			display: flex;
+            flex-direction: column;
+            font-family: "Open Sans", sans-serif;
+			background-color: #0d0d0d;
+            color: white;
+            padding: 12px;
+		}
+
+        header{
+
+            display: grid;
+            place-items: center;
+        }
+
+        header h1 {
+             font-size: 2rem;
+
+        }
+
+        header h2 {
+            font-size: 1rem;
+        }
+
+        main {
+
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+
+        }
+
+        main section {
+
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+
+        }
+
+        main section div{
+
+            text-align: center;
+            border: 1px solid white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        main section div:hover {
+
+            border-color: plum;
+
+        }
+
+        main section p {
+
+            text-align: center;
+            padding: 8px 16px;
+            
+
+        }
+
+        #second,#loading,#recommendations{
+
+            display: none;
+        }
+
+
+        span {
+
+            text-align: center;
+            background: plum;
+            color: white;         
+            cursor: pointer;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 8px 16px;
+        }
+
+        span:hover {
+
+            background: transparent;
+            border: 1px solid white;
+        }
+
+
+	</style>
+</head>
+<body>
+
+    <header>
+
+        <h1>Welcome to the [ Ledger ] CS bot</h1>
+        <h2>I am here to help you keep your crypto safe!</h2>
+
+    </header>
+	<main>
+        <section id="first">
+            <p>I own a...</p>
+            <div onclick="selectDevice('Nano X')">Nano X</div>
+            <div onclick="selectDevice('Nano S Plus')">Nano S Plus</div>
+        </section>
+        <section id="second">
+            <p>I hold...</p>
+            <div onclick="selectCoin('Bitcoin')">Bitcoin</div>
+            <div onclick="selectCoin('Ethereum')">Ethereum</div>
+            <div onclick="selectCoin('Solana')">Solana</div>
+            <span>Keep me safe</span>
+        </section>
+        <section id="loading">
+
+            <p>Loading...</p>
+
+        </section>
+            
+        <section id="recommendations">
+            <div id="response-container"></div>
+
+        </section>
+    </main>
+</body>
+<script>
+    let device = null
+    let coins = []
+    let chatRecommends = []
+    const firstEle = document.getElementById('first')
+    const secondEle = document.getElementById('second')
+    const thirdEle = document.getElementById('loading')
+    const fourthEle = document.getElementById('recommendations')
+    const submit = document.querySelector('span')
+    submit.addEventListener('click', generateAnswer)
+
+    function selectDevice(deviceType){
+
+        device = deviceType
+        firstEle.style.display = 'none'
+        secondEle.style.display = 'flex'
+        console.log(device)
+
+    }
+
+    function selectCoin(coin){
+        cnz = coin
+        coins.push(coin)
+        color()
+        console.log(cnz)
+        console.log(coins)
+
+    }
+
+    function color() {
+        const coinsList = document.querySelectorAll('#second div')
+        coinsList.forEach(coin => {
+            if (coins.includes(coin.innerText)){
+                coin.style.background = 'orange'
+            }
+        })
+    }
+
+    async function generateAnswer(){
+        let request = `Hi chat, please give a short answer to the following question. As a new Ledger ${device} user, how can I keep my ${coins} safe with my Ledger device?`
+        coins.forEach(coin =>{
+            request += `${coin}`
+        })
+        console.log(request)
+        try {
+            secondEle.style.display = 'none'
+            thirdEle.style.display = 'flex'
+            const res = await fetch ('http://localhost:4088/gpt', {
+               method: 'POST',
+               headers : {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify({'question': request})
+
+            })
+
+            const { response } = await res.json()
+            thirdEle.style.display = 'none'
+            fourthEle.innerHTML = `<p>${response}</p>`;
+            fourthEle.style.display = 'flex'
+            console.log(response)
+            
+    
+        } catch (err) {
+            console.log(err.question)
+        }
+        
+    }
+
+</script>
+</html>
