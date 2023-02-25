@@ -6,7 +6,7 @@ const OPENAI_API_KEY =  'your_key'
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
  });
-const PORT = 4088
+const PORT = YOUR_PORT
 
 //init chat
 const openai = new OpenAIApi(configuration);
