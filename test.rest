@@ -1,10 +1,19 @@
 ###
-
 POST http://localhost:4088/api
 Content-Type: application/json
 
 {
 
-    "question": "your_question"
+    "question": "What is Ethereum?"
 
+}
+
+###
+POST http://localhost:4088/gpt
+Content-Type: application/json
+
+{
+
+    "question": "What is Bitcoin?"
+    
 }
