@@ -1,4 +1,7 @@
 # chat_gpt_cs_bot
 
-A POC bot powered by the OPENAI Api, the bot gives security advice to Ledger users based on which device they own and which crypto they hold.
+A Customer Service assistant bot powered by the OPENAI Api.
+
+Feed the bot an email, choose the desired tone and let it proof-read your email
+
 Still a work in progress!
