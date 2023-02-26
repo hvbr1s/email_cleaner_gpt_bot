@@ -74,13 +74,21 @@
 
         }
 
+        label {
+
+            text-align: center;
+            padding: 8px 16px;
+            align-items: center;
+
+        }
+
         #second,#loading,#recommendations{
 
             display: none;
         }
 
 
-        span {
+        button {
 
             text-align: center;
             background: plum;
@@ -91,10 +99,27 @@
             padding: 8px 16px;
         }
 
-        span:hover {
+        button:hover {
 
             background: transparent;
             border: 1px solid white;
+        }
+
+        span {
+
+        text-align: center;
+        background: plum;
+        color: white;         
+        cursor: pointer;
+        border: 1px solid white;
+        border-radius: 5px;
+        padding: 8px 16px;
+        }
+
+        span:hover {
+
+        background: transparent;
+        border: 1px solid white;
         }
 
 
@@ -105,21 +130,22 @@
     <header>
 
         <h1>Welcome to the [ Ledger ] CS bot</h1>
-        <h2>I am here to help you keep your crypto safe!</h2>
+        <h2>I am here to help you write good emails :)</h2>
 
     </header>
 	<main>
         <section id="first">
-            <p>I own a...</p>
-            <div onclick="selectDevice('Nano X')">Nano X</div>
-            <div onclick="selectDevice('Nano S Plus')">Nano S Plus</div>
+
+            <label for="email-input">Paste your email:</label>
+            <textarea id="email-input" rows="25" cols="50"></textarea>
+            <button id="btn">Submit</button>
+
         </section>
         <section id="second">
-            <p>I hold...</p>
-            <div onclick="selectCoin('Bitcoin')">Bitcoin</div>
-            <div onclick="selectCoin('Ethereum')">Ethereum</div>
-            <div onclick="selectCoin('Solana')">Solana</div>
-            <span>Keep me safe</span>
+            <p>I want my email to sound:</p>
+            <div onclick="selectTone('Friendly')">Friendly</div>
+            <div onclick="selectTone('Formal')">Formal</div>
+            <span>Generate</span>
         </section>
         <section id="loading">
 
@@ -134,48 +160,46 @@
     </main>
 </body>
 <script>
-    let device = null
-    let coins = []
+    let emails = []
+    let tones = []
     let chatRecommends = []
     const firstEle = document.getElementById('first')
+    document.getElementById("btn").addEventListener("click", selectEmail)
     const secondEle = document.getElementById('second')
     const thirdEle = document.getElementById('loading')
     const fourthEle = document.getElementById('recommendations')
     const submit = document.querySelector('span')
     submit.addEventListener('click', generateAnswer)
 
-    function selectDevice(deviceType){
+    function selectEmail(emailType){
 
-        device = deviceType
+        const emailInput = document.getElementById("email-input").value;
+        emails.push(emailInput);
         firstEle.style.display = 'none'
-        secondEle.style.display = 'flex'
-        console.log(device)
+        secondEle.style.display = 'flex'    
+        console.log(emails);
 
-    }
+    };
 
-    function selectCoin(coin){
-        cnz = coin
-        coins.push(coin)
+    function selectTone(tone){
+        tnz = tone
+        tones.push(tone)
         color()
-        console.log(cnz)
-        console.log(coins)
+        console.log(tones)
 
     }
 
     function color() {
-        const coinsList = document.querySelectorAll('#second div')
-        coinsList.forEach(coin => {
-            if (coins.includes(coin.innerText)){
-                coin.style.background = 'orange'
+        const toneList = document.querySelectorAll('#second div')
+        toneList.forEach(tone => {
+            if (tones.includes(tone.innerText)){
+                tone.style.background = 'orange'
             }
         })
     }
 
     async function generateAnswer(){
-        let request = `Hi chat, please give a short answer to the following question. As a new Ledger ${device} user, how can I keep my ${coins} safe with my Ledger device?`
-        coins.forEach(coin =>{
-            request += `${coin}`
-        })
+        let request = `Hi chat, could you please correct the following email: "${emails}". Please make it sound more ${tones} and correct the grammar, spelling and style so it sounds like something a customer service agent might write, thanks!`
         console.log(request)
         try {
             secondEle.style.display = 'none'
