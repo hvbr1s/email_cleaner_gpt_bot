@@ -1,14 +1,17 @@
 import { createRequire } from "module"
 const require = createRequire(import.meta.url)
+require('dotenv').config()
 const express = require("express");
 const { Configuration, OpenAIApi } = require("openai");
-const OPENAI_API_KEY =  'your_key'
+const OPENAI_API_KEY = process.env.SECRET_API_KEY
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
  });
-const PORT = YOUR_PORT
+const PORT = 4088
 
-//init chat
+
+
+// init chat gpt
 const openai = new OpenAIApi(configuration);
 const app = express();
 
@@ -57,7 +60,7 @@ app.post("/api", async (req, res) => {
       const answer = result.data.choices[0].text.trim()
       console.log(answer)
       res.status(200).json(answer);
-      })
+    })
   } 
   
   catch (err) {
