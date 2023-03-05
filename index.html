@@ -129,33 +129,35 @@
 
     <header>
 
-        <h1>Welcome to the [ Ledger ] CS bot</h1>
-        <h2>I am here to help you write good emails :)</h2>
+        <h1>Welcome to the [ Ledger ] CS bot&#129302;</h1>
+        <h2>Here to help you write good emails &#129761;</h2>
 
     </header>
 	<main>
         <section id="first">
 
-            <label for="email-input">Paste your email:</label>
+            <label for="email-input">Paste your email &#128071;</label>
             <textarea id="email-input" rows="25" cols="50"></textarea>
-            <button id="btn">Submit</button>
+            <button id="btn"><b>Submit</b></button>
 
         </section>
         <section id="second">
             <p>I want my email to sound:</p>
             <div onclick="selectTone('Friendly')">Friendly</div>
             <div onclick="selectTone('Formal')">Formal</div>
-            <span>Generate</span>
+            <span><b>Generate</b></span>
         </section>
         <section id="loading">
 
             <p>Loading...</p>
 
-        </section>
-            
+        </section>           
         <section id="recommendations">
-            <div id="response-container"></div>
-
+        </section>
+        <section id="try-again">
+            <a href="http://localhost:4088/">
+                <button><b>Try again</b></button>
+            </a> 
         </section>
     </main>
 </body>
@@ -170,13 +172,16 @@
     const fourthEle = document.getElementById('recommendations')
     const submit = document.querySelector('span')
     submit.addEventListener('click', generateAnswer)
+    const fithEle = document.getElementById('try-again')
+
+
 
     function selectEmail(emailType){
 
         const emailInput = document.getElementById("email-input").value;
         emails.push(emailInput);
         firstEle.style.display = 'none'
-        secondEle.style.display = 'flex'    
+        secondEle.style.display = 'flex'
         console.log(emails);
 
     };
@@ -204,6 +209,7 @@
         try {
             secondEle.style.display = 'none'
             thirdEle.style.display = 'flex'
+            fithEle.style.display = 'none'
             const res = await fetch ('http://localhost:4088/gpt', {
                method: 'POST',
                headers : {
@@ -217,6 +223,9 @@
             thirdEle.style.display = 'none'
             fourthEle.innerHTML = `<p>${response}</p>`;
             fourthEle.style.display = 'flex'
+            fithEle.style.display = 'flex'
+            navigator.clipboard.writeText(response)
+            alert("Copied to clipboard!")
             console.log(response)
             
     
