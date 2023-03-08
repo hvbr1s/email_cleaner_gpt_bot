@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>My Website</title>
+	<title>CS Bot &#129302;</title>
 	<!-- Link to the Open Sans font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<style>
@@ -129,14 +129,14 @@
 
     <header>
 
-        <h1>Welcome to the [ Ledger ] CS bot&#129302;</h1>
-        <h2>Here to help you write good emails &#129761;</h2>
+        <h1>Beep Boop, I am Emailooor bot&#129302;</h1>
+        <h2 id="job">Here to fix your email &#128295;</h2>
 
     </header>
 	<main>
         <section id="first">
 
-            <label for="email-input">Paste your email &#128071;</label>
+            <label for="email-input">Let's begin, paste your email below &#128071;</label>
             <textarea id="email-input" rows="25" cols="50"></textarea>
             <button id="btn"><b>Submit</b></button>
 
@@ -155,10 +155,11 @@
         <section id="recommendations">
         </section>
         <section id="try-again">
-            <a href="http://localhost:4088/">
+            <a href="http://localhost:4888/">
                 <button><b>Try again</b></button>
             </a> 
         </section>
+        <section id="copied"><p>Copied to clipboard!&#128203;</p></section>
     </main>
 </body>
 <script>
@@ -173,15 +174,21 @@
     const submit = document.querySelector('span')
     submit.addEventListener('click', generateAnswer)
     const fithEle = document.getElementById('try-again')
+    const sixthEle = document.getElementById('copied')
+    const seventhEle = document.getElementById('job')
+    fithEle.style.display = 'none'
+    sixthEle.style.display = 'none'
+    
 
 
 
     function selectEmail(emailType){
-
         const emailInput = document.getElementById("email-input").value;
         emails.push(emailInput);
         firstEle.style.display = 'none'
         secondEle.style.display = 'flex'
+        fithEle.style.display = 'flex'
+        sixthEle.style.display = 'none'
         console.log(emails);
 
     };
@@ -203,6 +210,7 @@
         })
     }
 
+
     async function generateAnswer(){
         let request = `Hi chat, could you please correct the following email: "${emails}". Please make it sound more ${tones} and correct the grammar, spelling and style so it sounds like something a customer service agent might write, thanks!`
         console.log(request)
@@ -210,7 +218,9 @@
             secondEle.style.display = 'none'
             thirdEle.style.display = 'flex'
             fithEle.style.display = 'none'
-            const res = await fetch ('http://localhost:4088/gpt', {
+            sixthEle.style.display = 'none'
+            seventhEle.style.display = 'none'
+            const res = await fetch ('http://localhost:4888/gpt', {
                method: 'POST',
                headers : {
                     'Content-Type': 'application/json'
@@ -224,8 +234,9 @@
             fourthEle.innerHTML = `<p>${response}</p>`;
             fourthEle.style.display = 'flex'
             fithEle.style.display = 'flex'
+            sixthEle.style.display = 'flex'
+            seventhEle.style.display = 'none'
             navigator.clipboard.writeText(response)
-            alert("Copied to clipboard!")
             console.log(response)
             
     
