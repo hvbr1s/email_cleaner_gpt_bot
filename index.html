@@ -105,6 +105,24 @@
             border: 1px solid white;
         }
 
+        .try-button {
+
+            text-align: center;
+            background: rgb(101, 190, 242);
+            color: white;         
+            cursor: pointer;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 8px 16px;
+        }
+
+        try-button:hover{
+
+            background: transparent;
+            border: 1px solid white;
+
+        }
+
         span {
 
         text-align: center;
@@ -134,11 +152,12 @@
 
     </header>
 	<main>
+        <section id="tada">&#128076;</section>
         <section id="first">
 
             <label for="email-input">Let's begin, paste your email below &#128071;</label>
             <textarea id="email-input" rows="25" cols="50"></textarea>
-            <button id="btn"><b>Submit</b></button>
+            <button id="btn"><b>Fix</b></button>
 
         </section>
         <section id="second">
@@ -156,10 +175,10 @@
         </section>
         <section id="try-again">
             <a href="http://localhost:4888/">
-                <button><b>Try again</b></button>
+                <button class="try-button"><b>Start again</b></button>
             </a> 
         </section>
-        <section id="copied"><p>Copied to clipboard!&#128203;</p></section>
+        <section id="copied"><p><i>Copied to clipboard!</i>&#128203;</p></section>
     </main>
 </body>
 <script>
@@ -176,8 +195,10 @@
     const fithEle = document.getElementById('try-again')
     const sixthEle = document.getElementById('copied')
     const seventhEle = document.getElementById('job')
+    const eightEle = document.getElementById('tada')
     fithEle.style.display = 'none'
     sixthEle.style.display = 'none'
+    eightEle.style.display = 'none'
     
 
 
@@ -236,6 +257,7 @@
             fithEle.style.display = 'flex'
             sixthEle.style.display = 'flex'
             seventhEle.style.display = 'none'
+            eightEle.style.display = 'flex'
             navigator.clipboard.writeText(response)
             console.log(response)
             
