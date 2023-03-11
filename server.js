@@ -7,7 +7,7 @@ const OPENAI_API_KEY = process.env.SECRET_API_KEY
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
  });
-const PORT = YOURPORT
+const PORT = 4888
 
 // init chat gpt
 const openai = new OpenAIApi(configuration);
